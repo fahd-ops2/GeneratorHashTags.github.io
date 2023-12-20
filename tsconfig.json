@@ -24,6 +24,7 @@
   "files": ["./.eslintrc.cjs"],
   "include": [
     "src/**/*",
-    "css-modules.d.ts" // Add this line
+    "css-modules.d.ts",
+    "declarations.d.ts"
   ],
 }
