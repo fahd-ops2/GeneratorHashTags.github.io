@@ -9,6 +9,9 @@
 }
 .logo a {
   display: block;
+  text-decoration: none;
+  font-size: larger;
+  font-weight: bolder;
 }
 
 .header ul {

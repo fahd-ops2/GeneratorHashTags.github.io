@@ -1,4 +1,4 @@
-import { useDocumentHead, useLocation } from "@builder.io/qwik-city";
+import  { useDocumentHead, useLocation } from "@builder.io/qwik-city";
 
 import { component$ } from "@builder.io/qwik";
 

@@ -12,7 +12,7 @@
   --qwik-light-purple: #ac7ff4;
   --qwik-dark-purple: #713fc2;
   --qwik-dirty-black: #1d2033;
-  --qwik-dark-background: #151934;
+  --qwik-dark-background: #545871;
   --qwik-dark-text: #ffffff;
 }
 
@@ -72,6 +72,7 @@ html {
     "Segoe UI Emoji",
     "Segoe UI Symbol",
     "Noto Color Emoji";
+  scroll-behavior: smooth;
 }
 
 body {

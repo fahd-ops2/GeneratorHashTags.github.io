@@ -16,10 +16,10 @@
     "isolatedModules": true,
     "outDir": "tmp",
     "noEmit": true,
-    "types": ["node", "vite/client"],
     "paths": {
       "~/*": ["./src/*"]
-    }
+    },
+    "typeRoots": ["./node_modules/@types", "./types"]
   },
   "files": ["./.eslintrc.cjs"],
   "include": ["src", "./*.d.ts", "./*.config.ts"]
