@@ -23,7 +23,7 @@ export default component$(() => {
             if (event.key === 'Enter') {
               const target = event.target as HTMLInputElement;
               const fetchedHashtags: string[] = await fetchHashtags(target.value, loading, error);
-              hashtags.push(fetchedHashtags);
+              hashtags.push(...fetchedHashtags); // Correct way to add elements of one array to another
             }
           }} 
       />
