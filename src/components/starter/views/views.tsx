@@ -1,4 +1,4 @@
-import { component$, useStore, useSignal } from '@builder.io/qwik';
+import { component$, useStore, useSignal, $ } from '@builder.io/qwik';
 import styles from "./views.module.css";
 import { fetchHashtags } from './fetchHashtags';
 
@@ -6,6 +6,12 @@ export default component$(() => {
   const loading = useSignal(false);
   const error = useSignal<string>('');
   const hashtags = useStore<string[]>([]);
+
+  const fetchAndUpdateHashtags = $(async (word: string) => {
+    const fetchedHashtags: string[] = await fetchHashtags(word, loading, error);
+    hashtags.length = 0;
+    hashtags.push(...fetchedHashtags);
+  });
 
   return (
     <div  class={styles.form} >
@@ -15,18 +21,22 @@ export default component$(() => {
         </div>
       )}
       <div>
-        <input 
+      <input 
           type="text" 
           class={styles.wordInput}
           placeholder="Enter a word" 
           onKeyUp$={async (event: KeyboardEvent) => {
             if (event.key === 'Enter') {
-              const target = event.target as HTMLInputElement;
-              const fetchedHashtags: string[] = await fetchHashtags(target.value, loading, error);
-              hashtags.push(...fetchedHashtags); // Correct way to add elements of one array to another
+              fetchAndUpdateHashtags((event.target as HTMLInputElement).value);
             }
           }} 
-      />
+        />
+        <button 
+          class={styles.fetchButton}
+          onClick$={() => fetchAndUpdateHashtags((document.querySelector(`.${styles.wordInput}`) as HTMLInputElement).value)}
+        >
+          Fetch Hashtags
+        </button>
       </div>
       <div>
       <textarea 
