@@ -19,11 +19,11 @@
     "paths": {
       "~/*": ["./src/*"]
     },
-    "typeRoots": ["./node_modules/@types", "./types"]
+    "types": ["node", "vite"]
   },
   "files": ["./.eslintrc.cjs"],
   "include": [
-    "src/**/*",
+    "src",
     "css-modules.d.ts",
     "declarations.d.ts"
   ],
