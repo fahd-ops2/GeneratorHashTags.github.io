@@ -20,29 +20,26 @@ export default component$(() => {
           <div class={styles.loader}></div>
         </div>
       )}
-      <div>
-      <input 
-          type="text" 
+      <div class={styles.inputContainer}>
+        <input
+          type="text"
           class={styles.wordInput}
-          placeholder="Enter a word" 
+          placeholder="Enter a word"
           onKeyUp$={async (event: KeyboardEvent) => {
             if (event.key === 'Enter') {
               fetchAndUpdateHashtags((event.target as HTMLInputElement).value);
             }
-          }} 
+          }}
         />
-        <button 
-          class={styles.fetchButton}
-          onClick$={() => fetchAndUpdateHashtags((document.querySelector(`.${styles.wordInput}`) as HTMLInputElement).value)}
-        >
-          Fetch Hashtags
+        <button class={styles.iconButton} onClick$={() => console.log("add")}>
+          <i class={`fa-solid fa-plus`} />
+        </button>
+        <button class={styles.iconButton} onClick$={() => fetchAndUpdateHashtags((document.querySelector(`.${styles.wordInput}`) as HTMLInputElement).value)}>
+          <i class={`fa-solid fa-magnifying-glass`} />
         </button>
       </div>
       <div>
-      <textarea 
-          class={styles.myTextarea} 
-          value={hashtags.join("\n")}
-        />
+        <textarea class={styles.myTextarea} value={hashtags.join("\n")} />
       </div>
       {error.value && <p>Error: {error}</p>}
     </div>

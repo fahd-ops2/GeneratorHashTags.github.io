@@ -5,6 +5,8 @@
  * the styles in here will be applied to the Document, without any sort of CSS scoping.
  *
  */
+ @import url('./node_modules/@fortawesome/fontawesome-free/css/all.min.css');
+
 
 :root {
   --qwik-dark-blue: #006ce9;
