@@ -1,9 +1,9 @@
-import  { $ } from '@builder.io/qwik';
 import  type { Signal } from '@builder.io/qwik';
+import { server$ } from '@builder.io/qwik-city';
 
 const API_TOKEN = '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';
 
-export const fetchHashtags = $(async (word: string, loading : Signal<boolean>, error : Signal<string>) => {
+export const fetchHashtags = server$(async (word: string, loading : Signal<boolean>, error : Signal<string>) => {
     
     let hashtags : string[] = [];
     try {
@@ -21,7 +21,6 @@ export const fetchHashtags = $(async (word: string, loading : Signal<boolean>, e
   
         const hashtagSet = new Set<string>(hashtagWords);
         hashtags = Array.from(hashtagSet);
-        console.log(hashtags)
       } else {
         hashtags = [];
       }
