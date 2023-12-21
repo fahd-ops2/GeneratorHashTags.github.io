@@ -31,7 +31,7 @@ export default component$(() => {
       <div>
       <textarea 
           class={styles.myTextarea} 
-          value={hashtags.join("/n")}
+          value={hashtags.join("\n")}
         />
       </div>
       {error.value && <p>Error: {error}</p>}
