@@ -1,4 +1,5 @@
-import  { $, Signal } from '@builder.io/qwik';
+import  { $ } from '@builder.io/qwik';
+import  type { Signal } from '@builder.io/qwik';
 
 const API_TOKEN = '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';
 

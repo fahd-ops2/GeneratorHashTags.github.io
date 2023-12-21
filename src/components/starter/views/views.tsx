@@ -4,7 +4,7 @@ import { fetchHashtags } from './fetchHashtags';
 
 export default component$(() => {
   const loading = useSignal(false);
-  const error = useSignal<string>();
+  const error = useSignal<string>('');
   const hashtags = useStore<string[]>([]);
 
   return (
