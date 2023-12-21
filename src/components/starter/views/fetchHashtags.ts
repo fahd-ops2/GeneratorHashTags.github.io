@@ -1,33 +1,25 @@
-import  type { Signal } from '@builder.io/qwik';
 import { server$ } from '@builder.io/qwik-city';
 
 const API_TOKEN = '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';
 
-export const fetchHashtags = server$(async (word: string, loading : Signal<boolean>, error : Signal<string>) => {
+export const fetchHashtags = server$(async (word: string) => {
     
     let hashtags : string[] = [];
-    try {
-      const trimmedWord = word.trim();
-      if (!trimmedWord || trimmedWord.length > 100) {
-        throw new Error("Invalid input. Please enter a valid word.");
-      }
-      loading.value = true;
-      const resultArray = await query(`Generate a list of popular and relevant hashtags related to "${trimmedWord}". Focus on trending and widely used hashtags`);
-      if (resultArray && resultArray.length > 0) {
-        const generatedText = resultArray[0].generated_text;
-        const hashtagWords = generatedText.split(/\s+/)
-                                          .filter((w: string) => w.startsWith('#') && w.length > 1)
-                                          .map((tag: string) => tag.toLowerCase());
-  
-        const hashtagSet = new Set<string>(hashtagWords);
-        hashtags = Array.from(hashtagSet);
-      } else {
-        hashtags = [];
-      }
-    } catch (err) {
-      error.value = "Error fetching hashtags";
-    } finally {
-      loading.value = false;
+    const trimmedWord = word.trim();
+    if (!trimmedWord || trimmedWord.length > 100) {
+      throw new Error("Invalid input. Please enter a valid word.");
+    }
+    const resultArray = await query(`Generate a list of popular and relevant hashtags related to "${trimmedWord}". Focus on trending and widely used hashtags`);
+    if (resultArray && resultArray.length > 0) {
+      const generatedText = resultArray[0].generated_text;
+      const hashtagWords = generatedText.split(/\s+/)
+                                        .filter((w: string) => w.startsWith('#') && w.length > 1)
+                                        .map((tag: string) => tag.toLowerCase());
+
+      const hashtagSet = new Set<string>(hashtagWords);
+      hashtags = Array.from(hashtagSet);
+    } else {
+      hashtags = [];
     }
     return hashtags;
   });
