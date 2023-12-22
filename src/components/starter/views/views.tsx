@@ -11,7 +11,7 @@ export default component$(() => {
 
   const handleClick = $(() => {
     const inputElement = document.getElementById("inputWords") as HTMLInputElement | null;
-    if (inputElement != null && !words.includes(inputElement.value)) {
+    if (inputElement != null && !words.includes(inputElement.value) && words.length<3) {
       words.push(inputElement.value);
     }
   });
@@ -69,7 +69,7 @@ export default component$(() => {
         ))}
       </div>
       <div>
-        <textarea class={styles.myTextarea} value={hashtags.join("\n")} />
+        <textarea class={styles.myTextarea} value={hashtags.join("\n")} readOnly/>
       </div>
       {error.value && <p>Error: {error}</p>}
     </div>
