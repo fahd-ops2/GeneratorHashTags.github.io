@@ -16,19 +16,22 @@ export default component$(() => {
     }
   });
 
-  const fetchAndUpdateHashtags = $(async (word: string,loading: Signal<boolean>, error: Signal<string>) => {
+  const fetchAndUpdateHashtags = $( async (wordsList: string[],loading: Signal<boolean>, error: Signal<string>) => {
     try {
       loading.value = true;
-
-      const fetchedHashtags: string[] = await fetchHashtags(word);
-  
       hashtags.length = 0;
-      hashtags.push(...fetchedHashtags);
+      await Promise.all(wordsList.map(async (word) => {
+        const fetchedHashtags: string[] = await fetchHashtags(word);
+        hashtags.push(...fetchedHashtags);
+      }));
     } catch(err){
       error.value = "error  "
     } finally {
       loading.value = false;
-    }
+      const inputElement = document.getElementById("inputWords") as HTMLInputElement | null;
+      if (inputElement) {
+        inputElement.value = "";
+      }    }
   });
 
   return (
@@ -46,14 +49,14 @@ export default component$(() => {
           placeholder="Enter a word"
           onKeyUp$={async (event: KeyboardEvent) => {
             if (event.key === 'Enter') {
-              fetchAndUpdateHashtags((event.target as HTMLInputElement).value,loading,error);
+              fetchAndUpdateHashtags(words,loading,error);
             }
           }}
         />
         <button class={styles.iconButton} onClick$={() => handleClick()}>
           <i class={`fa-solid fa-plus`} />
         </button>
-        <button class={styles.iconButton} onClick$={() => fetchAndUpdateHashtags((document.querySelector(`.${styles.wordInput}`) as HTMLInputElement).value,loading,error)}>
+        <button class={styles.iconButton} onClick$={() => fetchAndUpdateHashtags(words,loading,error)}>
           <i class={`fa-solid fa-magnifying-glass`} />
         </button>
       </div>
