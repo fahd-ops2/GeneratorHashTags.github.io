@@ -11,17 +11,16 @@ export default component$(() => {
 
   const handleClick = $(() => {
     const inputElement = document.getElementById("inputWords") as HTMLInputElement | null;
-    if (inputElement != null && !words.includes(inputElement.value) && words.length<3) {
+    if (inputElement != null && inputElement.value != "" && !words.includes(inputElement.value) && words.length<3) {
       words.push(inputElement.value);
       inputElement.value = "";
     }
   });
 
-  const removeValue = $( async (valueToRemove: string) => {
-      const currentWords = words;
-      const updatedWords = currentWords.filter((word : string) => word !== valueToRemove);
+  const removeValue = $((valueToRemove: string) => {
+      const updatedWords = words.filter((word : string) => word !== valueToRemove);
       words.length = 0;
-      await updatedWords.forEach(word => words.push(word));
+      updatedWords.forEach(word => words.push(word));
     }
   );
 
@@ -34,7 +33,7 @@ export default component$(() => {
         hashtags.push(...fetchedHashtags);
       }));
     } catch(err){
-      error.value = "error  "
+      error.value = "error"
     } finally {
       loading.value = false;
       const inputElement = document.getElementById("inputWords") as HTMLInputElement | null;
@@ -75,7 +74,7 @@ export default component$(() => {
             key={index}
             class={styles.iconButton}
           >
-            {word}
+            <span>{word}</span>
             <i class={`fa-solid fa-xmark`} onClick$={() => removeValue(word)}/>
           </button>
         ))}

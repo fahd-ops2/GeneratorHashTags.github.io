@@ -30,16 +30,16 @@
     border-radius: 5px;
     font-size: 16px;
     font-family: inherit;
-    min-width: 500px; /* Minimum width of the textarea */
-    max-width: 100%; /* Maximum width of the textarea */
-    min-height: 150px; /* Minimum height of the textarea */
-    width: 100%; /* Default width of the textarea */
+    min-width: 500px;
+    max-width: 100%;
+    min-height: 150px;
+    width: 100%;
     box-sizing: border-box; 
 }
 
 @media (max-width: 600px) {
   .myTextarea {
-    min-width: 100%; /* Full width on smaller screens */
+    min-width: 100%;
   }
 }
   
@@ -57,12 +57,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(29, 32, 51, 0.7); /* Semi-transparent version of qwik-dirty-black */
+    background-color: rgba(29, 32, 51, 0.7);
     z-index: 9999;
   }
   
   .loader {
-    border: 5px solid var(--qwik-dark-background); /* Dark background color */
+    border: 5px solid var(--qwik-dark-background);
     border-top: 5px solid var(--qwik-light-blue);
     border-radius: 50%;
     width: 50px;
@@ -90,3 +90,6 @@
     display: flex; 
     gap: 10px;
  }
+ .iconButton span {
+  margin-right: 5px;
+}
