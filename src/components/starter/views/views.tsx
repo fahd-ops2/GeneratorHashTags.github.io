@@ -13,8 +13,17 @@ export default component$(() => {
     const inputElement = document.getElementById("inputWords") as HTMLInputElement | null;
     if (inputElement != null && !words.includes(inputElement.value) && words.length<3) {
       words.push(inputElement.value);
+      inputElement.value = "";
     }
   });
+
+  const removeValue = $( async (valueToRemove: string) => {
+      const currentWords = words;
+      const updatedWords = currentWords.filter((word : string) => word !== valueToRemove);
+      words.length = 0;
+      await updatedWords.forEach(word => words.push(word));
+    }
+  );
 
   const fetchAndUpdateHashtags = $( async (wordsList: string[],loading: Signal<boolean>, error: Signal<string>) => {
     try {
@@ -67,7 +76,7 @@ export default component$(() => {
             class={styles.iconButton}
           >
             {word}
-            <i class={`fa-solid fa-xmark`} />
+            <i class={`fa-solid fa-xmark`} onClick$={() => removeValue(word)}/>
           </button>
         ))}
       </div>
