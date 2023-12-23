@@ -39,7 +39,9 @@ export default component$(() => {
       const inputElement = document.getElementById("inputWords") as HTMLInputElement | null;
       if (inputElement) {
         inputElement.value = "";
-      }    }
+      }
+      words.length = 0;
+    }
   });
 
   return (
