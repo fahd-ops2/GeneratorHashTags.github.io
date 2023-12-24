@@ -1,9 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/web-manifest-combined.json",
-  "name": "qwik-project-name",
-  "short_name": "Welcome to Qwik",
+  "name": "Generator-HashTags",
+  "short_name": "Welcome to Generator HashTags",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#fff",
-  "description": "A Qwik project app."
+  "description": "Unlock the power of social media with our cutting-edge hashtag generator! Elevate your Instagram and TikTok posts effortlessly with our AI-driven tool, designed to curate the perfect hashtags for your content. Boost visibility, engagement, and reach new audiences by harnessing the trending and relevant tags. Transform your social media strategy and maximize your online presence. Dive into the world of impactful content creation with our hassle-free hashtag generation – because every post deserves to be discovered!"
 }
