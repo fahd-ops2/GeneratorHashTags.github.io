@@ -4,7 +4,7 @@ const API_TOKEN = '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';
 
 export const fetchHashtags = server$(async (word: string) => {
     
-    let hashtags : string[] = [];
+    let hashtagWords : string[] = [];
     const trimmedWord = word.trim();
     if (!trimmedWord || trimmedWord.length > 100) {
       throw new Error("Invalid input. Please enter a valid word.");
@@ -12,19 +12,16 @@ export const fetchHashtags = server$(async (word: string) => {
     const resultArray = await query(`Generate a list of popular and relevant hashtags related to "${trimmedWord}". Focus on trending and widely used hashtags`);
     if (resultArray && resultArray.length > 0) {
       const generatedText = resultArray[0].generated_text;
-      const hashtagWords = generatedText.split(/\s+/)
+      hashtagWords = generatedText.split(/\s+/)
                                         .filter((w: string) => w.startsWith('#') && w.length > 1)
                                         .map((tag: string) => tag.toLowerCase());
-
-      const hashtagSet = new Set<string>(hashtagWords);
-      hashtags = Array.from(hashtagSet);
     } else {
-      hashtags = [];
+      hashtagWords = [];
     }
-    return hashtags;
+    return hashtagWords;
   });
 
-async function query(prompt : string) {
+ async function query(prompt : string) {
     const data = { 
       inputs: prompt,
       parameters: {

@@ -14,11 +14,19 @@ export default component$(() => {
 
   const handleClick = $(() => {
     const inputElement = document.getElementById("inputWords") as HTMLInputElement | null;
-    if (inputElement != null && inputElement.value != "" && !words.includes(inputElement.value) && words.length<3) {
-      words.push(inputElement.value);
-      inputElement.value = "";
+  
+    const isInputEmpty = inputElement?.value.trim() === "";
+    const isInputAlreadyInArray = words.includes(inputElement?.value || "");
+    const isTooManyWords = words.length >= 3;
+  
+    const isInputValid = inputElement && !isInputEmpty && !isInputAlreadyInArray && !isTooManyWords;
+  
+    if (isInputValid) {
+      words.push(inputElement!.value);
+      inputElement!.value = "";
     }
   });
+  
 
   const removeValue = $((valueToRemove: string) => {
       const updatedWords = words.filter((word : string) => word !== valueToRemove);
@@ -28,12 +36,14 @@ export default component$(() => {
   );
 
   const fetchAndUpdateHashtags = $( async (wordsList: string[],loading: Signal<boolean>, error: Signal<string>) => {
+    if( wordsList.length == 0 ) showSig.value = true;
     try {
       loading.value = true;
       hashtags.length = 0;
       await Promise.all(wordsList.map(async (word) => {
         const fetchedHashtags: string[] = await fetchHashtags(word);
-        hashtags.push(...fetchedHashtags);
+        const hashtagSet = new Set<string>(fetchedHashtags);
+        hashtags.push(...Array.from(hashtagSet));
       }));
     } catch(err){
       error.value = "error"
@@ -74,7 +84,7 @@ export default component$(() => {
         </button>
       </div>
       <div class={styles.words}>
-        {words && words.map((word, index) => (
+        { words.map((word, index) => (
           <button
             key={index}
             class={styles.iconButton}
@@ -88,9 +98,6 @@ export default component$(() => {
         <textarea class={styles.myTextarea} value={hashtags.join("\n")} readOnly/>
       </div>
       {error.value && <p>Error: {error.value}</p>} {/* Fixed to display error message */}
-      <button onClick$={() => (showSig.value = true)} class="hover:bg-accent/80 rounded-md border px-3 py-2">
-        Open Modal
-      </button>
       <ModalAlert show={showSig}/>
     </div>
   );
