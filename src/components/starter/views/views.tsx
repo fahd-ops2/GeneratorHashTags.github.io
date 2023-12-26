@@ -2,12 +2,15 @@ import { component$, useStore, useSignal, $ } from '@builder.io/qwik';
 import type { Signal } from '@builder.io/qwik';
 import styles from "./views.module.css";
 import { fetchHashtags } from './fetchHashtags';
+import ModalAlert from '../modal/modal';
 
 export default component$(() => {
+
   const loading = useSignal(false);
   const error = useSignal<string>('');
   const hashtags = useStore<string[]>([]);
   const words = useStore<string[]>([]);
+  const showSig = useSignal(false);
 
   const handleClick = $(() => {
     const inputElement = document.getElementById("inputWords") as HTMLInputElement | null;
@@ -84,7 +87,11 @@ export default component$(() => {
       <div>
         <textarea class={styles.myTextarea} value={hashtags.join("\n")} readOnly/>
       </div>
-      {error.value && <p>Error: {error}</p>}
+      {error.value && <p>Error: {error.value}</p>} {/* Fixed to display error message */}
+      <button onClick$={() => (showSig.value = true)} class="hover:bg-accent/80 rounded-md border px-3 py-2">
+        Open Modal
+      </button>
+      <ModalAlert show={showSig}/>
     </div>
   );
-}); 
+});
